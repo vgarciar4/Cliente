@@ -1,0 +1,233 @@
+﻿
+@{
+    ViewData["Title"] = "NuevoUsuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+	var tiposIdentificacion = ViewBag.tiposIdentificacion as List<ejercicio1.Models.Clases.TipoIdentificacion>;
+	var tiposTarjeta = ViewBag.tiposTarjeta as List<ejercicio1.Models.Clases.TipoTarjeta>;
+}
+
+		<div class="card border shadow mb-5">
+
+				<div class="card-header">
+					<h4 class="card-title">NUEVO CLIENTE </h4>
+				</div>
+				<div class="card-body">
+
+					<!-- DATOS CLIENTE  -->
+					<div class="card border shadow mb-4">
+
+						<div class="card-header">
+							<h5 class="card-title">DATOS PERSONALES</h5>
+						</div>
+
+						<div class="card-body">
+
+							<div class="row">
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="nit">Nit *</label>
+									<input type="text" 
+										   class="form-control" 
+										   id="nit" 
+										   placeholder="Ingresar Nit">
+								</div>
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="primerNombre">Primer Nombre *</label>
+									<input type="text" 
+										   class="form-control" 
+										   id="primerNombre" 
+										   placeholder="Ingresar Nombre">
+								</div>
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="segundoNombre">Segundo Nombre</label>
+									<input type="text" 
+										   class="form-control" 
+										   id="segundoNombre" 
+										   placeholder="Ingresar Nombre">
+								</div>
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="primerApellido">Primer Apellido *</label>
+									<input type="text" 
+										   class="form-control" 
+										   id="primerApellido" 
+										   placeholder="Ingresar Apellido">
+								</div>
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="segundoApellido">Segundo Apellido</label>
+									<input type="text" 
+										   class="form-control" 
+										   id="segundoApellido" 
+										   placeholder="Ingresar Apellido">
+								</div>
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="edad">Edad *</label>
+									<input type="number" 
+										   class="form-control" 
+										   id="edad" 
+										   placeholder="Ingresar Edad">
+								</div>
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="sexo">Sexo *</label>
+									<select id="sexo" class="custom-select">
+										<option value="" disabled selected>Seleccionar Sexo</option>
+										<option value="M">Masculino</option>
+										<option value="F">Femenino</option>
+									</select>
+								</div>
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="tipoIdentifacion">Tipo identificacion *</label>
+									<select id="tipoIdentifacion" class="custom-select">
+										<option value="" disabled selected>Seleccionar Tipo Identificacion</option>
+										@foreach (var tipoIdentificacion in tiposIdentificacion)
+										{
+										<option value="@tipoIdentificacion.idTipoIdentificacion">@tipoIdentificacion.descripcion</option>
+										}
+									</select>
+								</div>
+
+								<div class="form-group col-lg-4 mb-3">
+									<label for="noIdentificacion">No. Identificación *</label>
+									<input type="number" 
+										   class="form-control" 
+										   id="noIdentificacion" 
+										   placeholder="Ingresar Numero Identificación">
+								</div>
+
+							</div>
+							
+						</div>
+
+					</div>
+
+					<!-- DATOS PAGO  -->
+					<div class="card border shadow mb-4">
+
+						<div class="card-header">
+							<h5 class="card-title">PAGO</h5>
+						</div>
+
+						<div class="card-body">
+
+							<div class="row">
+						
+								<div class="form-group col-lg-6 mb-3">
+									<label for="tipoTarjeta">Tipo tarjeta</label>
+									<select id="tipoTarjeta" class="custom-select">
+										<option value="" disabled selected>Seleccionar Tipo tarjeta</option>
+										@foreach (var tipoTajeta in tiposTarjeta)
+										{
+										<option value="@tipoTajeta.idTipoTarjeta">@tipoTajeta.descripcion</option>
+										}
+									</select>
+								</div>
+
+								<div class="form-group col-lg-6 mb-3">
+									<label for="noTarjeta">No. Tarjeta</label>
+									<input type="number" 
+										   class="form-control" 
+										   id="noTarjeta" 
+										   placeholder="Ingresar Numero Tarjeta">
+								</div>
+
+								<div class="form-group col-lg-6 mb-3">
+									<label for="vencimiento">Fecha Vencimiento</label>
+									<input type="date" 
+										   class="form-control" 
+										   id="vencimiento">
+								</div>
+
+								<div class="form-group col-lg-6 mb-3">
+									<label for="ccv">CCV</label>
+									<input type="number" 
+										   class="form-control" 
+										   id="ccv" 
+										   placeholder="Ingresar Numero Secreto">
+								</div>
+
+							</div>
+							
+						</div>
+
+					</div>
+
+					<!-- CONTACTO  -->
+					<div class="card border shadow mb-4">
+
+						<div class="card-header">
+							<div class="d-flex justify-content-between">
+
+								<h5 class="card-title">CONTACTO</h5>
+
+								<button class="btn btn-primary btn-sm" 
+										type="button" 
+										data-toggle="modal" 
+										data-target="#mdlNewContacto">
+									AGREGAR CONTACTO
+								</button>
+
+							</div>
+						</div>
+
+						<div class="card-body">
+
+							<table class="table table-hover" id="tablaContactos">
+								<thead class="thead-inverse">
+									<tr>
+										<th>#</th>
+										<th>TIPO</th>
+										<th>CONTACTO</th>
+										<th class="text-center">PRINCIPAL</th>
+										<th style="width: 15px;" class="text-center">ACCION</th>
+									</tr>
+									</thead>
+									<tbody id="tbodyTablaContactos">
+										<!-- <tr>
+											<td class="text-center">1</td>
+											<td>EMAIL</td>
+											<td >egarciaf2@gmail.com</td>
+											<td class="text-center">SI</td>
+											<td class="text-center">
+												<button class="btn btn-danger btn-sm"
+														title="Eliminar"
+														onclick="eliminarContacto()">X</button>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-center">1</td>
+											<td>TELEFONO</td>
+											<td >33443023</td>
+											<td class="text-center">SI</td>
+											<td class="text-center">
+												<button class="btn btn-danger btn-sm" title="Eliminar">X</button>
+											</td>
+										</tr> -->
+									</tbody>
+							</table>
+							
+						</div>
+
+					</div>
+
+
+					<div class="p-3">
+
+						<div class="float-right">
+							
+							<button type="button" class="btn btn-warning text-white mb-3">Limpiar</button>
+							<button type="button" class="btn btn-primary mb-3" onclick="guardarCliente()">Registrar</button>
+							
+						</div>
+					</div>
+
+				</div>
+
+			</div>

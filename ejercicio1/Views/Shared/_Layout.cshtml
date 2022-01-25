@@ -1,0 +1,110 @@
+﻿@*@model ejercicio1.Models.CatalogosModel;
+@{
+    var tipoIdentificacion = ViewBag.tiposIdentificacion ;
+}
+*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Clientes</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"> -->
+
+	<!-- JS  -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!-- <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script> -->
+
+</head>
+<body>
+	
+	<!-- NAVBAR -->
+
+	<nav class="py-5 bg-danger mb-2">
+		<h2 class="text-center text-white">CLIENTE</h2>
+		 
+	</nav>
+
+	<!-- BODY -->
+	<section>
+		
+		<div class="container p-3">
+				 @RenderBody()
+	
+
+		</div>
+
+
+	</section>
+
+
+	<!-- JS  -->
+	<script src="~/js/main.js"></script>
+</body>
+
+</html>
+
+
+
+<!-- Modal NUEVO CONTACTO -->
+<div class="modal fade" id="mdlNewContacto" tabindex="-1" role="dialog" aria-labelledby="mdlNewContactoTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+		<div class="modal-content">
+
+		<div class="modal-header">
+			<h5 class="modal-title" id="mdlNewContactoTitle">Contacto</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+
+		<div class="modal-body">
+			
+			<div class="row">
+						
+				<div class="form-group col-lg-4 mb-3">
+					<label for="tipoContacto">Tipo Contacto</label>
+					<select id="tipoContacto" 
+							class="custom-select"
+							onchange="tipoContacto()">
+						<option value="TEL">Telefono</option>
+						<option value="EMAIL">Email</option>
+					</select>
+				</div>
+		
+				<div class="form-group col-lg-4 mb-3">
+					<label for="contacto">Contacto</label>
+					<input type="number" 
+						class="form-control" 
+						id="contacto" 
+						placeholder="Ingresar telefono">
+				</div>
+		
+				<div class="form-group col-lg-4 mb-3">
+					<label for="contactoPrincipal">Contacto Principal</label>
+					<select id="contactoPrincipal" class="custom-select">
+						<option value="N">No</option>
+						<option value="S">Si</option>
+					</select>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+			<button type="button" class="btn btn-primary" onclick="agregarContacto()">Agregar</button>
+		</div>
+
+		</div>
+
+	</div>
+</div>
