@@ -95,15 +95,17 @@ function guardarCliente() {
     }
 
     console.log(dataCliente);
+
     $.ajax({
-        url: '/Cliente/ClienteSubmit',
-        type: 'post',
+        url: '/Cliente/InsertCliente',
+        type: 'POST',
+        data: JSON.stringify(dataCliente),
         dataType: 'json',
-        contentType: 'application/json',
+        contentType: 'application/json; charset=utf-8',
         success: function (respuesta) {
             console.log(respuesta);
-        } ,
-        data: JSON.stringify(dataCliente)
+        } 
+       
     });
 
 }

@@ -95,5 +95,6 @@ namespace ejercicio1.Models
 
             return _funciones.ConvertDataTableToList<TipoTarjeta>(dtTarjeta);
         }
+
     }
 }

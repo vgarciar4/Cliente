@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;  
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ejercicio1.Models;
+using ejercicio1.Models.Clases;
 
 namespace ejercicio1.Controllers
 {
@@ -28,15 +30,18 @@ namespace ejercicio1.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult ClienteSubmit(ejercicio1.Models.Clases.Cliente cliente)
-        {
-            System.Threading.Thread.Sleep(2000);  /*simulating slow connection*/
+        public JsonResult InsertCliente([FromBody] DataCliente dataCliente)
+        { 
+       
+        
+                //
+                //insertar cliente
+                // int id = clienteM.InsertarCliente(dataCliente);
 
-            /*Do something with object person*/
 
 
-            return Json(new { msg = "Successfully added " + cliente.primerNombre});
+                return Json(new object());
         }
+
     }
 }
