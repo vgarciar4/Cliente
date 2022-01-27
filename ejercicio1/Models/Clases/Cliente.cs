@@ -8,9 +8,9 @@ namespace ejercicio1.Models.Clases
     public class Cliente
     {
   
-        public int idCliente { get; set; }
+        public int ?idCliente { get; set; }
 
-        public int idTipoIdentificacion { get; set; }
+        public int ?idTipoIdentificacion { get; set; }
         public int nit { get; set; }
         public string primerNombre { get; set; }
         public string segundoNombre { get; set; }
@@ -19,7 +19,7 @@ namespace ejercicio1.Models.Clases
         public int edad { get; set; }
         public string sexo { get; set; }
         public int numeroIdentificacion { get; set; }
-        public DateTime fechaCreacion { get; set; }
-        public string estado { get; set; }
+        public DateTime ?fechaCreacion { get; set; }
+        public string ?estado { get; set; }
     }
 }
