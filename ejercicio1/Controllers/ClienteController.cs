@@ -15,11 +15,15 @@ namespace ejercicio1.Controllers
         private readonly string _cadenaConexion;
 
         CatalogosModel catalogos;
+        ClienteModel clienteM;
+        PagoModel pagoM;
 
         public ClienteController(IConfiguration configuration)
         {
             this._cadenaConexion = configuration.GetConnectionString("ConectionString");
             this.catalogos = new CatalogosModel(_cadenaConexion);
+            this.clienteM = new ClienteModel(_cadenaConexion);
+            this.pagoM = new PagoModel(_cadenaConexion);
         }
 
 
@@ -36,11 +40,18 @@ namespace ejercicio1.Controllers
         
                 //
                 //insertar cliente
-                // int id = clienteM.InsertarCliente(dataCliente);
+                 int idCliente = clienteM.InsertarCliente(dataCliente.cliente);
 
 
+            if (idCliente > 0) {
+                //insertar los datos de pago y contacto
+                pagoM.InsertarPago(idCliente, dataCliente.pago);
 
-                return Json(new object());
+
+            }
+
+
+                return Json(new { });
         }
 
     }

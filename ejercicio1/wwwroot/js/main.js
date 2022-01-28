@@ -100,8 +100,8 @@ function guardarCliente() {
         url: '/Cliente/InsertCliente',
         type: 'POST',
         data: JSON.stringify(dataCliente),
-        contentType: "application/json; charset=utf-8",
         dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
         success: function (respuesta) {
             console.log(respuesta);
         } 
