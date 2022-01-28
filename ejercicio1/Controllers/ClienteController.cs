@@ -18,6 +18,8 @@ namespace ejercicio1.Controllers
         ClienteModel clienteM;
         PagoModel pagoM;
         ContactoModel contactoM;
+        NegocioModel negocioM;
+        VehiculoModel vehiculoM;
 
         public ClienteController(IConfiguration configuration)
         {
@@ -26,6 +28,8 @@ namespace ejercicio1.Controllers
             this.clienteM = new ClienteModel(_cadenaConexion);
             this.pagoM = new PagoModel(_cadenaConexion);
             this.contactoM = new ContactoModel(_cadenaConexion);
+            this.negocioM = new NegocioModel(_cadenaConexion);
+            this.vehiculoM = new VehiculoModel(_cadenaConexion);
 
         }
 
@@ -45,6 +49,7 @@ namespace ejercicio1.Controllers
                 //insertar cliente
                  int idCliente = clienteM.InsertarCliente(dataCliente.cliente);
 
+            string valor = "S";
 
             if (idCliente > 0) {
                 //insertar los datos de pago y contacto
@@ -53,6 +58,15 @@ namespace ejercicio1.Controllers
                 foreach (var contacto in dataCliente.contactos)
                 {
                     contactoM.InsertarContacto(idCliente, contacto);
+                }
+
+                if ( valor == dataCliente.negocio.valorNegocio)
+                {
+                    negocioM.InsertarNegocio(idCliente, dataCliente.negocio);
+                }
+                if (valor == dataCliente.vehiculo.valorVehiculo)
+                {
+                    vehiculoM.InsertarVehiculo(idCliente, dataCliente.vehiculo);
                 }
 
             }

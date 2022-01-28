@@ -27,9 +27,6 @@ namespace ejercicio1.Models
                 cmd = new SqlCommand("SP_InsertarContacto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlParameter idNewCliente = new SqlParameter("@idCliente", SqlDbType.Int);
-                idNewCliente.Direction = ParameterDirection.ReturnValue;
-
 
                 cmd.Parameters.Add("@idCliente", SqlDbType.Int).Value = IdCliente;
                 cmd.Parameters.Add("@tipo", SqlDbType.VarChar).Value = insertarContacto.tipo;

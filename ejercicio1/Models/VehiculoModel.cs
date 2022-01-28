@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace ejercicio1.Models
 {
-    public class PagoModel
+    public class VehiculoModel
     {
+
         private readonly string cadenaConexion;
-        public PagoModel(string _conexion)
+        public VehiculoModel(string _conexion)
         {
             this.cadenaConexion = _conexion;
         }
-        public void InsertarPago(int IdCliente, Pago insertarPago)
+        public void InsertarVehiculo(int IdCliente, Vehiculo insertarVehiculo)
         {
 
             SqlConnection cn = null/* TODO Change to default(_) if this is not a reference type */;
@@ -24,15 +25,16 @@ namespace ejercicio1.Models
             {
 
                 cn = new SqlConnection(cadenaConexion);
-                cmd = new SqlCommand("SP_InsertarPago", cn);
+                cmd = new SqlCommand("SP_InsertarVehiculo", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
 
+
                 cmd.Parameters.Add("@idCliente", SqlDbType.Int).Value = IdCliente;
-                cmd.Parameters.Add("@IdTipoTarjeta", SqlDbType.Int).Value = insertarPago.idTipoTarjeta;
-                cmd.Parameters.Add("@numeroTarjeta", SqlDbType.Int).Value = insertarPago.numeroTarjeta;
-                cmd.Parameters.Add("@vencimiento", SqlDbType.DateTime).Value = insertarPago.vencimiento;
-                cmd.Parameters.Add("@ccv", SqlDbType.Int).Value = insertarPago.ccv;
+                cmd.Parameters.Add("@marcaVehiculo", SqlDbType.VarChar).Value = insertarVehiculo.marcaVehiculo;
+                cmd.Parameters.Add("@modeloVehiculo", SqlDbType.Int).Value = insertarVehiculo.modeloVehiculo;
+                cmd.Parameters.Add("@lineaVehiculo", SqlDbType.VarChar).Value = insertarVehiculo.lineaVehiculo;
+                cmd.Parameters.Add("@costoAproVehiculo", SqlDbType.Decimal).Value = insertarVehiculo.costoAproVehiculo;
 
 
                 cn.Open();
@@ -45,7 +47,7 @@ namespace ejercicio1.Models
             }
             catch (Exception ex)
             {
-              
+
             }
             finally
             {
@@ -59,3 +61,4 @@ namespace ejercicio1.Models
         }
     }
 }
+

@@ -216,7 +216,164 @@
 						</div>
 
 					</div>
+<!-- preguntas  -->
+				<div class="card border shadow mb-4">
 
+					<div class="card-header">
+						<div class="d-flex justify-content-between">
+
+							<h5 class="card-title">PREGUNTAS</h5>
+
+						</div>
+					</div>
+
+					<div class="card-body">
+						<table class="table table-hover" id="tablaContactos">
+							<thead class="thead-inverse">
+								<tr>
+									<th>PREGUNTA</th>
+									<th COLSPAN=2 class="text-center">RESPUESTA</th>
+								</tr>
+								</thead>
+								<tbody id="tbodyTablaContactos">
+									<tr>
+										<td >¿Posee negocio propio?</td>
+										<td class="text-right">			
+												<input class="form-check-input" type="radio" name="rbtnNegocio" id="rbtnNeocioSi" value="S" >
+												<label class="form-check-label" for="rbtnNeocioSi">
+												 Si           
+												</label>
+										</td>
+										<td class="text-center">
+											<input class="form-check-input" type="radio" name="rbtnNegocio" id="rbtnNeocioNo" value="N" checked>
+											<label class="form-check-label" for="rbtnNeocioNo">
+											No
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td >¿Posee vehículo propio?</td>
+										<td class="text-right">			
+												<input class="form-check-input" type="radio" name="rbtnvehiculo" id="rbtnvehiculoSi" value="S" >
+												<label class="form-check-label" for="rbtnvehiculoSi">
+												 Si           
+												</label>
+										</td>
+										<td class="text-center">
+											<input class="form-check-input" type="radio" name="rbtnvehiculo" id="rbtnvehiculoNo" value="N" checked>
+											<label class="form-check-label" for="rbtnvehiculoNo">
+											No
+											</label>
+										</td>
+									</tr>
+								</tbody>
+						</table>
+					</div>
+				</div>
+<!--termina preguntas-->
+
+<!-- negocio propio  -->
+				<div class="card border shadow mb-4" id="divNegocioPropio" style="display:none;">
+
+					<div class="card-header">
+						<h5 class="card-title">NEGOCIO PROPIO</h5>
+					</div>
+
+					<div class="card-body">
+
+						<div class="row">
+					
+							<div class="form-group col-lg-6 mb-3">
+								<label for="nitNegociPropio">NIT</label>
+								<input type="text" 
+									class="form-control" 
+									id="nitNegociPropio" 
+									placeholder="Ingresar Numero de NIt">
+							</div>
+
+							<div class="form-group col-lg-6 mb-3">
+								<label for="nombreNegocioPropio">Nombre Negocio</label>
+								<input type="text" 
+									   class="form-control" 
+									   id="nombreNegocioPropio" 
+									   placeholder="Ingresar Nombre Negocio">
+							</div>
+
+							<div class="form-group col-lg-6 mb-3">
+								<label for="direccionNegocioPropio">Dirección</label>
+								<input type="text" 
+									   class="form-control" 
+									   id="direccionNegocioPropio" 
+									   placeholder="Ingresar Dirección">
+							</div>
+
+							<div class="form-group col-lg-6 mb-3">
+								<label for="telefonoNegocioPropio">Telefono</label>
+								<input type="number" 
+									   class="form-control"
+									   id="telefonoNegocioPropio" 
+									   placeholder="Ingresar Telefono">
+							</div>
+
+						</div>
+						
+					</div>
+
+				</div>
+
+<!-- termina  negocio propio  -->
+<!-- Vehiculo propio-->
+<div class="card border shadow mb-4" id="divVehiculo" style="display:none;">
+
+	<div class="card-header">
+		<h5 class="card-title">VEHICULO PROPIO</h5>
+	</div>
+
+	<div class="card-body">
+
+		<div class="row">
+
+			<div class="form-group col-lg-6 mb-3">
+				<label for="marcaVehiculo">Marca</label>
+				<input type="text" 
+					   class="form-control" 
+					   id="marcaVehiculo" 
+					   placeholder="Ingresar Marca">
+			</div>
+
+			<div class="form-group col-lg-6 mb-3">
+				<label for="modeloVehiculo">Modelo</label>
+				<input type="number" 
+					   class="form-control" 
+					   id="modeloVehiculo" 
+					   placeholder="Ingresar Modelo">
+			</div>
+
+			<div class="form-group col-lg-6 mb-3">
+				<label for="lineaVehiculo">Linea</label>
+				<input type="text" 
+					   class="form-control" 
+					   id="lineaVehiculo" 
+					   placeholder="Ingresar Linea">
+			</div>
+
+			<div class="form-group col-lg-6 mb-3">
+				<label for="costoAproVehiculo">Costo Aproximado</label>
+				<input type="number" 
+						step="0.01"
+						min="1"
+					   class="form-control" 
+					   id="costoAproVehiculo" 
+					   placeholder="Ingresar Costo Aproximado">
+			</div>
+
+		</div>
+		
+	</div>
+
+</div>
+
+<!-- Termina Vehiculo propio-->
 
 					<div class="p-3">
 

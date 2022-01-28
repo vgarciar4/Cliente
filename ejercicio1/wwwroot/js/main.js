@@ -67,6 +67,45 @@ function guardarCliente() {
         return;
     }
 
+    //Negocio
+    let nitNegocio = $('#nitNegociPropio').val();
+    let nombreNegocio = $('#nombreNegocioPropio').val();
+    let direccionNegocio = $('#direccionNegocioPropio').val();
+    let telefonoNegocio = $('#telefonoNegocioPropio').val();
+
+    let valorNegocio = $('input:radio[name=rbtnNegocio]:checked').val();
+
+    if (valorNegocio == 'S') {
+        if (!nitNegocio || !nombreNegocio || !direccionNegocio || !telefonoNegocio) {
+            showAlert('error', 'Debe completar todos los campos de datos de Negocio Propio');
+            return;
+        } else {
+
+            if (telefonoNegocio.length != 8) {
+                showAlert('error', 'El numero de telefono del negocio es incorrecto, debe tener 8 numeros');
+                return;
+            }
+        }
+    }
+
+
+    // vehiculo
+    let marcaVehiculo = $('#marcaVehiculo').val();
+    let modeloVehiculo = $('#modeloVehiculo').val();
+    let lineaVehiculo = $('#lineaVehiculo').val();
+    let costoAproVehiculo = $('#costoAproVehiculo').val();
+
+    let valorVehiculo = $('input:radio[name=rbtnvehiculo]:checked').val();
+
+    if (valorVehiculo == 'S') {
+        if (!marcaVehiculo || !modeloVehiculo || !lineaVehiculo || !costoAproVehiculo) {
+            showAlert('error', 'Debe completar todos los campos de datos del Vehiculo');
+            return;
+
+        }
+
+    }
+
     //Objetos literales
     let cliente = {
         nit: nit,
@@ -86,12 +125,28 @@ function guardarCliente() {
         vencimiento: vencimiento,
         ccv: ccv,
     }
+    let negocio = {
+        valorNegocio: valorNegocio,
+        nitNegocio: nitNegocio,
+        nombreNegocio: nombreNegocio,
+        direccionNegocio: direccionNegocio,
+        telefonoNegocio: telefonoNegocio
+    }
+    let vehiculo = {
+        valorVehiculo: valorVehiculo,
+        marcaVehiculo: marcaVehiculo,
+        modeloVehiculo: modeloVehiculo,
+        lineaVehiculo: lineaVehiculo,
+        costoAproVehiculo: costoAproVehiculo
+    }
 
     //Objeto que agrupa toda la informacion para ser enviada
     let dataCliente = {
         cliente: cliente,
         pago: pago,
-        contactos: contactos
+        contactos: contactos,
+        negocio: negocio,
+        vehiculo: vehiculo
     }
 
     console.log(dataCliente);
@@ -104,8 +159,8 @@ function guardarCliente() {
         contentType: 'application/json; charset=utf-8',
         success: function (respuesta) {
             console.log(respuesta);
-        } 
-       
+        }
+
     });
 
 }
@@ -248,3 +303,35 @@ function showAlert(tipo, mensaje) {
 }
 
 
+//evento para mostrar negocio propio 
+$(document).ready(function () {
+    $("input[name=rbtnNegocio]").click(function (evento) {
+
+        let valor = $('input:radio[name=rbtnNegocio]:checked').val();
+
+        if (valor == 'S') {
+            $("#divNegocioPropio").css("display", "block");
+
+        } else {
+            $("#divNegocioPropio").css("display", "none");
+
+        }
+    });
+});
+
+//evento para mostrar vehiculo propio
+
+$(document).ready(function () {
+    $("input[name=rbtnvehiculo]").click(function (evento) {
+
+        let valor = $('input:radio[name=rbtnvehiculo]:checked').val();
+
+        if (valor == 'S') {
+            $("#divVehiculo").show(600);
+
+        } else {
+            $("#divVehiculo").hide(600);
+
+        }
+    });
+});

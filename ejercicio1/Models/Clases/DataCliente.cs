@@ -11,5 +11,7 @@ namespace ejercicio1.Models.Clases
         public Pago pago { get; set; }
 
         public List<Contacto> contactos { get; set; }
+        public Negocio negocio { get; set; }
+        public Vehiculo vehiculo { get; set; }
     }
 }
