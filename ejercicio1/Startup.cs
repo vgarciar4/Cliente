@@ -51,7 +51,7 @@ namespace ejercicio1
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Cliente}/{action=NuevoUsuario}/{id?}");
+                    pattern: "{controller=Cliente}/{action=Index}/{id?}");
             });
         }
     }

@@ -28,6 +28,7 @@ const bodyTablaContactos = $('#tbodyTablaContactos');
 function guardarCliente() {
 
     //DATOS PERSONALES
+    let idCliente = $('#idCliente').val();
     let nit = $('#nit').val();
     let primerNombre = $('#primerNombre').val();
     let segundoNombre = $('#segundoNombre').val();
@@ -108,6 +109,7 @@ function guardarCliente() {
 
     //Objetos literales
     let cliente = {
+        idCliente: idCliente,
         nit: nit,
         primerNombre: primerNombre,
         segundoNombre: segundoNombre,
@@ -151,16 +153,22 @@ function guardarCliente() {
 
     console.log(dataCliente);
 
+    let url = (idCliente && idCliente > 0) ? '/Cliente/ActualizarCliente' : '/Cliente/InsertCliente';
+
     $.ajax({
-        url: '/Cliente/InsertCliente',
+        url: url,
         type: 'POST',
         data: JSON.stringify(dataCliente),
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (respuesta) {
-            console.log(respuesta);
+        contentType: "application/json; charset=utf-8",
+        dataType: 'JSON',
+        success: function (resp) {
+            console.log(resp);
+            if (resp.statusCode == 200) {
+                showAlertReload('success', 'Proceso completado exitosamente');
+            } else {
+                showAlert('success', 'Ocurrio un error al completar el proceso');
+            }
         }
-
     });
 
 }
@@ -233,7 +241,7 @@ function listarContactos() {
         let tr = `
                 <tr>
                     <td class="text-center">${i + 1} </td>
-                    <td> ${contactos[i].tipoContacto} </td>
+                    <td> ${(contactos[i].tipo == 'TEL') ? 'TELEFONO' : 'CORREO' }</td>
                     <td> ${contactos[i].contacto} </td>
                     <td class="text-center"> ${(contactos[i].principal == 'S') ? 'Si' : 'No'} </td>
                     <td class="text-center">
@@ -304,20 +312,24 @@ function showAlert(tipo, mensaje) {
 
 
 //evento para mostrar negocio propio 
+
+
 $(document).ready(function () {
     $("input[name=rbtnNegocio]").click(function (evento) {
 
         let valor = $('input:radio[name=rbtnNegocio]:checked').val();
 
         if (valor == 'S') {
-            $("#divNegocioPropio").css("display", "block");
+            $("#divNegocioPropio").show(600);
 
         } else {
-            $("#divNegocioPropio").css("display", "none");
+            $("#divNegocioPropio").hide(600);
 
         }
     });
 });
+
+
 
 //evento para mostrar vehiculo propio
 
@@ -332,6 +344,11 @@ $(document).ready(function () {
         } else {
             $("#divVehiculo").hide(600);
 
+            //Limpiar formulario de negocio
+            $("#marcaVehiculo").val('');
+            $("#modeloVehiculo").val('');
+            $("#lineaVehiculo").val('');
+            $("#costoAproVehiculo").val('');
         }
     });
 });

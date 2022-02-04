@@ -1,0 +1,513 @@
+﻿
+@{
+    var cliente = ViewBag.cliente as ejercicio1.Models.Clases.Cliente;
+    var pago = ViewBag.pago as ejercicio1.Models.Clases.Pago;
+    var vehiculo = ViewBag.vehiculo as ejercicio1.Models.Clases.Vehiculo;
+    var negocio = ViewBag.negocio as ejercicio1.Models.Clases.Negocio;
+
+
+	var tiposIdentificacion = ViewBag.tiposIdentificacion as List<ejercicio1.Models.Clases.TipoIdentificacion>;
+	var tiposTarjeta = ViewBag.tiposTarjeta as List<ejercicio1.Models.Clases.TipoTarjeta>;
+}
+
+<script>    
+    /**
+     * FUNCION ENCARGADA DE CARGAR LOS CONTACTOS AL EDITAR UN CLIENTE
+     */
+    $(document).ready(function () {
+        (function cargarContactosEditarCliente() {
+            contactos = JSON.parse('@Html.Raw(ViewBag.contactos)');
+            console.log('contactos', contactos);
+            listarContactos();
+        })();
+    });
+</script>
+
+<div class="card border shadow mb-5">
+
+    <div class="card-header">
+         <div class="d-flex justify-content-between">                
+            <h4 class="card-title">EDITAR CLIENTE </h4>
+            <a href="~/Cliente/Index" class="btn btn-success">Regresar</a>
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <!-- DATOS CLIENTE  -->
+        <div class="card border shadow mb-4">
+
+            <div class="card-header">
+                <h5 class="card-title">DATOS PERSONALES</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <input type="hidden" id="idCliente" value="@cliente.idCliente" />  
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="nit">Nit *</label>
+                        <input type="number"
+                               class="form-control"
+                               id="nit"
+                               value="@cliente.nit"
+                               placeholder="Ingresar Nit">
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="primerNombre">Primer Nombre *</label>
+                        <input type="text"
+                               class="form-control"
+                               id="primerNombre"
+                               value="@cliente.primerNombre"
+                               placeholder="Ingresar Nombre">
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="segundoNombre">Segundo Nombre</label>
+                        <input type="text"
+                               class="form-control"
+                               id="segundoNombre"
+                               value="@cliente.segundoNombre"
+                               placeholder="Ingresar Nombre">
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="primerApellido">Primer Apellido *</label>
+                        <input type="text"
+                               class="form-control"
+                               id="primerApellido"
+                               value="@cliente.primerApellido"
+                               placeholder="Ingresar Apellido">
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="segundoApellido">Segundo Apellido</label>
+                        <input type="text"
+                               class="form-control"
+                               id="segundoApellido"
+                               value="@cliente.segundoApellido"
+                               placeholder="Ingresar Apellido">
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="edad">Edad *</label>
+                        <input type="number"
+                               class="form-control"
+                               id="edad"
+                               value="@cliente.edad"
+                               placeholder="Ingresar Edad">
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="sexo">Sexo *</label>
+                        <select id="sexo" class="custom-select">
+
+                            <option value="" disabled selected>Seleccionar Sexo</option>
+                            <option value="M" selected="@(cliente.sexo == "M" ? "selected" : null)"  >Masculino</option>
+                            <option value="F" selected="@(cliente.sexo == "F" ? "selected" : null)">Femenino</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="tipoIdentifacion">Tipo identificacion *</label>
+                        <select id="tipoIdentifacion" class="custom-select">
+                            <option value="" disabled selected>Seleccionar Tipo Identificacion</option>
+                            @foreach (var tipoIdentificacion in tiposIdentificacion)
+                            {
+                                if (tipoIdentificacion.idTipoIdentificacion == cliente.idTipoIdentificacion)
+                                {
+                                    <option value="@tipoIdentificacion.idTipoIdentificacion" selected>@tipoIdentificacion.descripcion</option>
+                                }
+                                else
+                                {
+                                    <option value="@tipoIdentificacion.idTipoIdentificacion">@tipoIdentificacion.descripcion</option>
+                                }
+                                
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="noIdentificacion">No. Identificación *</label>
+                        <input type="number"
+                               class="form-control"
+                               id="noIdentificacion"
+                               value="@cliente.numeroIdentificacion"
+                               placeholder="Ingresar Numero Identificación">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DATOS PAGO  -->
+        <div class="card border shadow mb-4">
+
+            <div class="card-header">
+                <h5 class="card-title">PAGO</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 mb-3">
+                        <label for="tipoTarjeta">Tipo tarjeta</label>
+                        <select id="tipoTarjeta" class="custom-select">
+                            <option value="" disabled selected>Seleccionar Tipo tarjeta</option>
+                            @foreach (var tipoTajeta in tiposTarjeta)
+                            {
+                                @if (tipoTajeta.idTipoTarjeta == pago.idTipoTarjeta)
+                                {
+                                    <option value="@tipoTajeta.idTipoTarjeta" selected>@tipoTajeta.descripcion</option>
+                                }
+                                else
+                                {
+                                    <option value="@tipoTajeta.idTipoTarjeta">@tipoTajeta.descripcion</option>
+                                }
+                                
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-6 mb-3">
+                        <label for="noTarjeta">No. Tarjeta</label>
+                        <input type="number"
+                               class="form-control"
+                               id="noTarjeta"
+                               value="@pago.numeroTarjeta"
+                               placeholder="Ingresar Numero Tarjeta">
+                    </div>
+
+                    <div class="form-group col-lg-6 mb-3">
+                        <label for="vencimiento">Fecha Vencimiento</label>
+                        <input type="date"
+                               class="form-control"
+                               value="@pago.vencimiento"
+                               id="vencimiento">
+                    </div>
+
+                    <div class="form-group col-lg-6 mb-3">
+                        <label for="ccv">CCV</label>
+                        <input type="number"
+                               class="form-control"
+                               id="ccv"
+                               value="@pago.ccv"
+                               placeholder="Ingresar Numero Secreto">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CONTACTO  -->
+        <div class="card border shadow mb-4">
+
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+
+                    <h5 class="card-title">CONTACTO</h5>
+
+                    <button class="btn btn-primary btn-sm"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#mdlNewContacto">
+                        AGREGAR CONTACTO
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-hover" id="tablaContactos">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>TIPO</th>
+                            <th>CONTACTO</th>
+                            <th class="text-center">PRINCIPAL</th>
+                            <th style="width: 15px;" class="text-center">ACCION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyTablaContactos">
+                        <!-- <tr>
+                            <td class="text-center">1</td>
+                            <td>EMAIL</td>
+                            <td >egarciaf2@gmail.com</td>
+                            <td class="text-center">SI</td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm"
+                                        title="Eliminar"
+                                        onclick="eliminarContacto()">X</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>TELEFONO</td>
+                            <td >33443023</td>
+                            <td class="text-center">SI</td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm" title="Eliminar">X</button>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <!-- preguntas  -->
+				<div class="card border shadow mb-4">
+
+					<div class="card-header">
+						<div class="d-flex justify-content-between">
+
+							<h5 class="card-title">PREGUNTAS</h5>
+
+						</div>
+					</div>
+
+					<div class="card-body">
+						<table class="table table-hover" id="tablaContactos">
+							<thead class="thead-inverse">
+								<tr>
+									<th>PREGUNTA</th>
+									<th COLSPAN=2 class="text-center">RESPUESTA</th>
+								</tr>
+								</thead>
+								<tbody id="tbodyTablaContactos">
+									<tr>
+										<td >¿Posee negocio propio?</td>
+										<td class="text-right">			
+												<input class="form-check-input" type="radio" name="rbtnNegocio" id="rbtnNeocioSi" value="S" @(negocio == null ? "" : "checked") >
+												<label class="form-check-label" for="rbtnNeocioSi">
+												 Si           
+												</label>
+										</td>
+										<td class="text-center">
+											<input class="form-check-input" type="radio" name="rbtnNegocio" id="rbtnNeocioNo" value="N"  @(negocio == null ? "checked" : "")>
+											<label class="form-check-label" for="rbtnNeocioNo">
+											No
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<td >¿Posee vehículo propio?</td>
+										<td class="text-right">			
+												<input class="form-check-input" type="radio" name="rbtnvehiculo" id="rbtnvehiculoSi" value="S" @(vehiculo == null ? "" : "checked") >
+												<label class="form-check-label" for="rbtnvehiculoSi">
+												 Si           
+												</label>
+										</td>
+										<td class="text-center">
+											<input class="form-check-input" type="radio" name="rbtnvehiculo" id="rbtnvehiculoNo" value="N" @(vehiculo == null ? "checked" : "")>
+											<label class="form-check-label" for="rbtnvehiculoNo">
+											No
+											</label>
+										</td>
+									</tr>
+								</tbody>
+						</table>
+					</div>
+				</div>
+<!--termina preguntas-->
+
+<!-- negocio propio  -->
+				<div class="card border shadow mb-4" id="divNegocioPropio" style=@(negocio == null ? "display:none" : "display:block")>
+
+					<div class="card-header">
+						<h5 class="card-title">NEGOCIO PROPIO</h5>
+					</div>
+
+					<div class="card-body">
+
+						<div class="row">
+					
+							<div class="form-group col-lg-6 mb-3">
+								<label for="nitNegociPropio">NIT</label>
+								<input type="text" 
+									class="form-control" 
+									id="nitNegociPropio" 
+                                    value ="@(negocio == null ? "" : negocio.nitNegocio)"
+									placeholder="Ingresar Numero de NIt">
+							</div>
+
+							<div class="form-group col-lg-6 mb-3">
+								<label for="nombreNegocioPropio">Nombre Negocio</label>
+								<input type="text" 
+									   class="form-control" 
+									   id="nombreNegocioPropio" 
+                                       value ="@(negocio == null ? "" : negocio.nombreNegocio)"
+									   placeholder="Ingresar Nombre Negocio">
+							</div>
+
+							<div class="form-group col-lg-6 mb-3">
+								<label for="direccionNegocioPropio">Dirección</label>
+								<input type="text" 
+									   class="form-control" 
+									   id="direccionNegocioPropio" 
+                                       value ="@(negocio == null ? "" : negocio.direccionNegocio)"
+									   placeholder="Ingresar Dirección">
+							</div>
+
+							<div class="form-group col-lg-6 mb-3">
+								<label for="telefonoNegocioPropio">Telefono</label>
+								<input type="number" 
+									   class="form-control"
+									   id="telefonoNegocioPropio"
+                                       value ="@(negocio == null ? "" : negocio.telefonoNegocio)"
+									   placeholder="Ingresar Telefono">
+							</div>
+
+						</div>
+						
+					</div>
+
+				</div>
+
+<!-- termina  negocio propio  -->
+<!-- Vehiculo propio-->
+<div class="card border shadow mb-4" id="divVehiculo" style=@(vehiculo == null ? "display:none" : "display:block")>
+
+	<div class="card-header">
+		<h5 class="card-title">VEHICULO PROPIO</h5>
+	</div>
+
+	<div class="card-body">
+
+		<div class="row">
+
+			<div class="form-group col-lg-6 mb-3">
+				<label for="marcaVehiculo">Marca</label>
+				<input type="text" 
+					   class="form-control" 
+					   id="marcaVehiculo" 
+                       value ="@(vehiculo == null ? "" : vehiculo.marcaVehiculo)"
+					   placeholder="Ingresar Marca">
+			</div>
+
+			<div class="form-group col-lg-6 mb-3">
+				<label for="modeloVehiculo">Modelo</label>
+				<input type="number" 
+					   class="form-control" 
+					   id="modeloVehiculo" 
+                       value ="@(vehiculo == null ? "" : vehiculo.modeloVehiculo)"
+					   placeholder="Ingresar Modelo">
+			</div>
+
+			<div class="form-group col-lg-6 mb-3">
+				<label for="lineaVehiculo">Linea</label>
+				<input type="text" 
+					   class="form-control" 
+					   id="lineaVehiculo"
+                       value ="@(vehiculo == null ? "" : vehiculo.lineaVehiculo)"
+					   placeholder="Ingresar Linea">
+			</div>
+
+			<div class="form-group col-lg-6 mb-3">
+				<label for="costoAproVehiculo">Costo Aproximado</label>
+				<input type="number" 
+						step="0.01"
+						min="1"
+					   class="form-control" 
+					   id="costoAproVehiculo" 
+                       value ="@(vehiculo == null ? "" : vehiculo.costoAproVehiculo)"
+					   placeholder="Ingresar Costo Aproximado">
+			</div>
+
+		</div>
+		
+	</div>
+
+</div>
+
+<!-- Termina Vehiculo propio-->
+
+
+        <div class="p-3">
+
+            <div class="float-right">
+
+                <button type="button" class="btn btn-warning text-white mb-3">Limpiar</button>
+                <button type="button" class="btn btn-primary mb-3" onclick="guardarCliente()">Registrar</button>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Modal NUEVO CONTACTO -->
+<div class="modal fade" id="mdlNewContacto" tabindex="-1" role="dialog" aria-labelledby="mdlNewContactoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdlNewContactoTitle">Contacto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="tipoContacto">Tipo Contacto</label>
+                        <select id="tipoContacto"
+                                class="custom-select"
+                                onchange="tipoContacto()">
+                            <option value="TEL">Telefono</option>
+                            <option value="EMAIL">Email</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="contacto">Contacto</label>
+                        <input type="number"
+                               class="form-control"
+                               id="contacto"
+                               placeholder="Ingresar telefono">
+                    </div>
+
+                    <div class="form-group col-lg-4 mb-3">
+                        <label for="contactoPrincipal">Contacto Principal</label>
+                        <select id="contactoPrincipal" class="custom-select">
+                            <option value="N">No</option>
+                            <option value="S">Si</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="agregarContacto()">Agregar</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>

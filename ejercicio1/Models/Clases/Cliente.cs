@@ -21,5 +21,6 @@ namespace ejercicio1.Models.Clases
         public int numeroIdentificacion { get; set; }
         public DateTime fechaCreacion { get; set; }
         public string estado { get; set; }
+        public string ?descripcion { get; set; } //DESCRIPCION DEL TIPO DE IDENTIFICACION
     }
 }

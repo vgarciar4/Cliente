@@ -21,7 +21,12 @@ namespace ejercicio1.Utilities
             return data;
         }
 
-        //Funcion que permite agregar los valores del DataTable a la lista
+        /// <summary>
+        /// Funcion que permite agregar los valores del DataTable a la lista
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dr"></param>
+        /// <returns></returns>
         private static T GetItem<T>(DataRow dr)
         {
             Type temp = typeof(T);

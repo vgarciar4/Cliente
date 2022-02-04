@@ -1,0 +1,57 @@
+﻿@{
+    var getAllClientes = ViewBag.getAllCliente as List<ejercicio1.Models.Clases.Cliente>;
+}
+<div class="card border shadow mb-5">
+
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <h4 class="card-title">LISTA DE CLIENTES </h4>
+            <a href="~/Cliente/NuevoUsuario" class="btn btn-success">Registrar Cliente</a>
+        </div>
+    </div>
+    <div class="car-body">
+        <div class="table-responsive table-respnsive-sm table-respnsive-md table-respnsive-lg ">
+            <table class="table table-striped " id="tabla1">
+                <caption>Lista de Clientes</caption>
+                <thead>
+                    <tr>
+                        <th>CODIGO</th>
+                        <th>NOMBRE</th>
+                        <th>NIT</th>
+                        <th>EDAD</th>
+                        <th>SEXO</th>
+                        <th>TIPO IDENTIFICACION </th>
+                        <th>IDENTIFICACION</th>
+                        <th>ACCION</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var cliente in getAllClientes)
+                    {
+                        <tr>
+                            <td>@cliente.idCliente</td>
+                            <td>@cliente.primerNombre  @cliente.primerApellido @cliente.segundoApellido</td>
+                            <td>@cliente.nit</td>
+                            <td>@cliente.edad</td>
+                            <td>@cliente.sexo</td>
+                            <td>@cliente.descripcion    </td>
+                            <td>@cliente.numeroIdentificacion</td>
+                            <td>
+                                <div class="btn btn-group btn-group-sm">
+                                    <a href="~/Cliente/EditarCliente?idCliente=@cliente.idCliente" class="btn btn-warning text-white m-1">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <button class="btn btn-danger m-1" onclick="eliminarCliente(@cliente.idCliente)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
