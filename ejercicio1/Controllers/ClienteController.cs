@@ -24,6 +24,7 @@ namespace ejercicio1.Controllers
         NegocioModel negocioM;
         VehiculoModel vehiculoM;
 
+        
         public ClienteController(IConfiguration configuration)
         {
             this._cadenaConexion = configuration.GetConnectionString("ConectionString");
@@ -158,10 +159,10 @@ namespace ejercicio1.Controllers
 
 
         [HttpPost]
-        public JsonResult EliminarCliente([FromBody] DataCliente dataCliente)
+        public JsonResult EliminarCliente(int idCliente)
         {
 
-            return Json((clienteM.EliminarCliente(dataCliente.cliente.idCliente)) ? Ok() : BadRequest()) ;
+            return Json((clienteM.EliminarCliente(idCliente)) ? Ok() : BadRequest()) ;
         }
 
 

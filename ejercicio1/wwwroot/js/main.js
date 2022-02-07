@@ -164,7 +164,7 @@ function guardarCliente() {
         success: function (resp) {
             console.log(resp);
             if (resp.statusCode == 200) {
-                showAlertReload('success', 'Proceso completado exitosamente');
+                showAlert('success', 'Proceso completado exitosamente');
             } else {
                 showAlert('success', 'Ocurrio un error al completar el proceso');
             }
@@ -293,6 +293,49 @@ function tipoContacto() {
 }
 
 /**
+ * Elimina el cliente de la base de datos
+ * @param {number} idCliente Id del cliente a eliminar
+ */
+function eliminarCliente(idCliente) {
+
+    Swal.fire({
+        title: 'Eliminar cliente',
+        html: `¿Confirma que desea eliminar el cliente?</b>`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, Eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true,
+        customClass: {
+            confirmButton: 'btn btn-success ml-2',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: '/Cliente/EliminarCliente?idCliente=' + idCliente,
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'JSON',
+                success: function (resp) {
+                    if (resp.statusCode == 200) {
+                        showAlertReload('success', 'Cliente eliminado exitosamente');
+                    } else {
+                        showAlert('success', 'Ocurrio un error al eliminar el cliente');
+                    }
+                }
+            });
+        }
+
+    });
+}
+
+/**
  * Funcion que muestra una alerta del plugin SweetAlert
  * @param {string} tipo Tipo de alerta a mostrar (success, error)
  * @param {string} mensaje Mensaje que desea mostrar en la alerta
@@ -309,6 +352,28 @@ function showAlert(tipo, mensaje) {
     })
 
 }
+/**
+ * Funcion que muestra una alerta del plugin SweetAlert y refresca la pagina
+ * @param {string} tipo Tipo de alerta a mostrar (success, error)
+ * @param {string} mensaje Mensaje que desea mostrar en la alerta
+ */
+//function showAlertRefresh(tipo, mensaje) {
+
+//    let title = (tipo == 'success') ? 'Completado' :
+//        (tipo == 'error') ? 'Error' : 'Atencion';
+
+//    Swal.fire({
+//        icon: tipo,
+//        title: title,
+//        text: mensaje,
+//    }).then(funtion(respuesta){
+//        if(respuesta.isConfirmed){
+//        location.reload();
+//    }
+    
+//    });
+
+//}
 
 
 //evento para mostrar negocio propio 
